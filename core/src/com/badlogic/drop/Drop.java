@@ -15,6 +15,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.util.Iterator;
+
 public class Drop extends ApplicationAdapter {
 	private Texture dropImage;
 	private Texture bucketImage;
@@ -77,6 +79,14 @@ public class Drop extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
 		if(bucket.x < 0) bucket.x = 0;
 		if(bucket.x > 800 - 64) bucket.x = 800 - 64;
+
+		if(TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnRaindrop();
+		Iterator<Rectangle> iter = raindrops.iterator();
+		while(iter.hasNext()) {
+			Rectangle raindrop = iter.next();
+			raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
+			if(raindrop.y + 64 < 0) iter.remove();
+		}
 
 	}
 	
