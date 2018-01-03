@@ -47,8 +47,14 @@ public class Drop extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		camera.update();
+
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		batch.draw(bucketImage, bucket.x, bucket.y);
+		batch.end();
 
 	}
 	
