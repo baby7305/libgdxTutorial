@@ -66,6 +66,9 @@ public class Drop extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		batch.draw(bucketImage, bucket.x, bucket.y);
+		for(Rectangle raindrop: raindrops) {
+			batch.draw(dropImage, raindrop.x, raindrop.y);
+		}
 		batch.end();
 
 		if(Gdx.input.isTouched()) {
@@ -87,6 +90,7 @@ public class Drop extends ApplicationAdapter {
 			raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
 			if(raindrop.y + 64 < 0) iter.remove();
 		}
+
 
 	}
 	
