@@ -9,8 +9,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class Drop extends ApplicationAdapter {
 	private Texture dropImage;
@@ -20,6 +23,8 @@ public class Drop extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Rectangle bucket;
+	private Array<Rectangle> raindrops;
+	private long lastDropTime;
 	
 	@Override
 	public void create () {
@@ -45,6 +50,9 @@ public class Drop extends ApplicationAdapter {
 		bucket.y = 20;
 		bucket.width = 64;
 		bucket.height = 64;
+
+		raindrops = new Array<Rectangle>();
+		spawnRaindrop();
 	}
 
 	@Override
@@ -75,5 +83,15 @@ public class Drop extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 
+	}
+
+	private void spawnRaindrop() {
+		Rectangle raindrop = new Rectangle();
+		raindrop.x = MathUtils.random(0, 800-64);
+		raindrop.y = 480;
+		raindrop.width = 64;
+		raindrop.height = 64;
+		raindrops.add(raindrop);
+		lastDropTime = TimeUtils.nanoTime();
 	}
 }
